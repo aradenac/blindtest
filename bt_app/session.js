@@ -1,11 +1,28 @@
 
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+const url = 'mongodb://192.168.0.10:27017';
+const dbName = 'blindtest';
+
 class Session {
     constructor(){
+        const client = new MongoClient(url);
         this.players = [];
-        this.songs = ["music/m1.mp3", "music/m2.mp3"];
+        this.songs = [];
         this.songIdx = 0;
         this.runningGame = false;
+        client.connect(function(err){
+            assert.equal(null, err);
+            const db = client.db(dbName);
+            var musics = db.collection("musics");
+            musics.find({}).toArray(((err, songs) =>{
+                this.songs = songs;
+                this.startGame();
+            }).bind(this));
+            console.log("Connected to database");
+        }.bind(this));
     }
+    
     addPlayer(player) {
 
         var p = this.playerByName(player.name);
@@ -65,9 +82,9 @@ class Session {
     startSong(){
         var song = this.songs[this.songIdx];
         /*notify all players*/
-        this.emitAll('startSong', song)
+        this.emitAll('startSong', song.file)
         setTimeout((this.stopSong).bind(this), 30000);
-        console.log(`Starting song ${song}`);
+        console.log(`Starting song ${song.file}`);
     }
     getSong(){
         return this.songs[this.songIdx];

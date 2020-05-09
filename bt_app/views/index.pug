@@ -22,9 +22,9 @@ script.
     console.log(`server answer eval: ${result}`);
   });
 
-  socket.on('startSong', (songURL) => {
-    console.log(`server order play song: ${songURL}`);
-    player.src = songURL;
+  socket.on('startSong', (song) => {
+    console.log(`server order play song: ${song}`);
+    player.src = 'music/'+song;
     player.load();
     player.play();
   });

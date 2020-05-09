@@ -26,7 +26,6 @@ app.use('/users', usersRouter);
 
 // start a test game session
 sessionTest = new Session();
-sessionTest.startGame();
 sessions.push(sessionTest);
 
 // catch 404 and forward to error handler
