@@ -5,45 +5,61 @@ head
   script(src='https://code.jquery.com/jquery-3.5.0.min.js' integrity='sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=' crossorigin='anonymous')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js')
 
-audio#audioPlayer(controls='' autoplay)
-  source(src="http://localhost:2000", type="audio/mpeg")
+audio#audioPlayer
+  |           Your browser does not support the audio tag
+
+input#answer
+
+button(onclick="submitAnswer()") go
+
 script.
-  /*
-  var player = $('#audioPlayer')[0];
+  var $player = $('#audioPlayer');
+  var player = $player[0];
 
-  var songs = [
-    'm1', 'm2', 'm3'
-  ];
+  var socket = io("localhost:3000");
 
-  var songIdx = -1;
-
-  var socket = io('http://localhost:3000');
-  socket.on('connect', function(){
-    console.log('connected with socket io to localhost');
+  socket.on('answerResponse', (result) => {
+    console.log(`server answer eval: ${result}`);
   });
-  socket.on('event', function(data){});
-  socket.on('disconnect', function(){});
 
-  socket.on('loadNextSong', () => {
-    console.log('server order to play next song');
-
-    if (songIdx == 2) {
-      songIdx = -1;
-    }
-    songIdx++;
-
-    songPath = `../music/${songs[songIdx]}.mp3`;
-
-    player.src = songPath;
+  socket.on('startSong', (songURL) => {
+    console.log(`server order play song: ${songURL}`);
+    player.src = songURL;
     player.load();
-  });
-
-  socket.on('playSong', () => {
     player.play();
   });
 
-  player.addEventListener('canplaythrough', () => {
-    socket.emit('clientSongLoaded');
-  })
-  */
+  socket.on('stopSong', ()=>{
+    console.log('server order stop song');
+    player.pause();
+  });
 
+  $player.on('canplaythrough', () => {
+    // notify server
+  });
+
+  function submitAnswer() {
+    var answer = $('#answer').val();
+
+    console.log(`submit answer: ${answer}`);
+
+    socket.emit('submitAnswer', {name: 'roger', answer: answer});
+  }
+
+  function changeTrack() {
+    player.src = '../music/m1.mp3';
+    player.load();
+  }
+
+  function playTrack() {
+    player.play();
+    setTimeout(changeTrack, 3000);
+  }
+
+  changeTrack();
+
+
+  /*
+  $player.on('canplaythrough', ()=>{
+    player.play();
+  })*/

@@ -4,3 +4,5 @@ class User {
         this.token = null;
     }
 }
+
+module.exports = User;

@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('bt-app:server');
 var http = require('http');
+var sessions = require('../sessions.js');
+var User = require('../user.js');
 
 
 /**
@@ -28,6 +30,16 @@ var io = require('socket.io')(server);
 // socket IO events
 io.on('connection', (socket) => {
   console.log('a user connected');
+
+  user = new User('roger');
+  user.socket = socket;
+
+  sessions[0].addPlayer(user);
+
+  socket.on('disconnect', ()=>{
+    console.log("player disconnect");
+    sessions[0].delPlayer(user.name)
+  });
 
   socket.emit('loadNextSong');
 

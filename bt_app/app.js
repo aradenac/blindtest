@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var sessions = require('./sessions.js');
+var Session = require('./session.js');
 
 var app = express();
 
@@ -22,6 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+// start a test game session
+sessionTest = new Session();
+sessionTest.startGame();
+sessions.push(sessionTest);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
