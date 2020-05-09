@@ -1,8 +1,9 @@
 
 const MongoClient = require('mongodb').MongoClient;
+const {ObjectId} = require('mongodb');
+const {compareTwoStrings} = require('string-similarity');
 const assert = require('assert');
 const url = 'mongodb://192.168.0.10:27017';
-const dbName = 'blindtest';
 
 class Session {
     constructor(){
@@ -11,16 +12,43 @@ class Session {
         this.songs = [];
         this.songIdx = 0;
         this.runningGame = false;
-        client.connect(function(err){
-            assert.equal(null, err);
-            const db = client.db(dbName);
-            var musics = db.collection("musics");
-            musics.find({}).toArray(((err, songs) =>{
-                this.songs = songs;
+
+        client.connect()
+        .then((client)=>{
+            //assert.equal(null, err);
+            if (client == null) {
+                console.log(err);
+                return Promise.reject();
+            }
+
+            const db = client.db('blindtest');
+            var playlists = db.collection('playlists');
+
+            playlists.findOne({name: 'testPlaylist'})
+
+            .then((playlist)=>{
+                console.log(`from db playlist ${playlist.name}`);
+
+                var promises = [];
+                var musics = db.collection('musics');
+
+                for (var songID of playlist.songIDs) {
+                    var promise;
+                    promise = musics.findOne({_id: new ObjectId(songID)}).then( (song)=>{
+                        this.songs.push(song);
+                    });
+
+                    promises.push(promise);
+                }
+
+                return Promise.all(promises);
+            })
+            .then(()=>{
+                console.log("startGame and close db")
                 this.startGame();
-            }).bind(this));
-            console.log("Connected to database");
-        }.bind(this));
+                client.close();
+            })
+        })
     }
     
     addPlayer(player) {
@@ -63,11 +91,20 @@ class Session {
         var answer = params.answer;
         var name = params.name;
         var player;
+        var currentSong = this.songs[this.songIdx];
+        var result = false;
 
         player = this.playerByName(name);
 
         console.log(`${name} answer: ${answer}`)
-        player.socket.emit('answerResponse', 'false');
+
+        var similarity = compareTwoStrings(answer.toLowerCase(), currentSong.artist.toLowerCase());
+
+        if (similarity > 0.5) {
+            result = true;
+        }
+
+        player.socket.emit('answerResponse', result);
     }
     startGame(){
         this.songIdx = 0;

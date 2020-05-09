@@ -8,18 +8,29 @@ head
 audio#audioPlayer
   |           Your browser does not support the audio tag
 
+p#serverMessage yolo
 input#answer
 
-button(onclick="submitAnswer()") go
-
 script.
+  var $srvMsg = $('#serverMessage');
+
   var $player = $('#audioPlayer');
   var player = $player[0];
 
   var socket = io("localhost:3000");
 
+  $answer = $('#answer');
+
+  $answer.on('keyup', (event)=>{
+    if (event.keyCode == 13) {
+      event.preventDefault();
+      submitAnswer();
+    }
+  })
+
   socket.on('answerResponse', (result) => {
     console.log(`server answer eval: ${result}`);
+    $srvMsg.text(`${result}`);
   });
 
   socket.on('startSong', (song) => {
@@ -27,6 +38,8 @@ script.
     player.src = 'music/'+song;
     player.load();
     player.play();
+    $answer.val('');
+    $srvMsg.text('');
   });
 
   socket.on('stopSong', ()=>{
