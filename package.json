@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.13",
     "pug-cli": "^1.0.0-alpha6"
   }
 }
