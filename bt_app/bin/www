@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('bt-app:server');
 var http = require('http');
 
+
 /**
  * Get port from environment and store in Express.
  */
@@ -20,6 +21,22 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+var io = require('socket.io')(server);
+
+
+// socket IO events
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  socket.emit('loadNextSong');
+
+  socket.on('clientSongLoaded', () => {
+    socket.emit('playSong');
+  });
+});
+
+
 
 /**
  * Listen on provided port, on all network interfaces.

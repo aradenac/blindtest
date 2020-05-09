@@ -3,11 +3,47 @@ head
   meta(charset='utf8')
   title test audio html5 player
   script(src='https://code.jquery.com/jquery-3.5.0.min.js' integrity='sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=' crossorigin='anonymous')
-audio#audioPlayer(controls='' oncanplaythrough='playTrack()')
-  source(src='music/m1.mp3' type='audio/mpeg')
-  |           Your browser does not support the audio tag
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js')
+
+audio#audioPlayer(controls='' autoplay)
+  source(src="http://localhost:2000", type="audio/mpeg")
 script.
+  /*
   var player = $('#audioPlayer')[0];
-  function playTrack() {
-  player.play();
-  }
+
+  var songs = [
+    'm1', 'm2', 'm3'
+  ];
+
+  var songIdx = -1;
+
+  var socket = io('http://localhost:3000');
+  socket.on('connect', function(){
+    console.log('connected with socket io to localhost');
+  });
+  socket.on('event', function(data){});
+  socket.on('disconnect', function(){});
+
+  socket.on('loadNextSong', () => {
+    console.log('server order to play next song');
+
+    if (songIdx == 2) {
+      songIdx = -1;
+    }
+    songIdx++;
+
+    songPath = `../music/${songs[songIdx]}.mp3`;
+
+    player.src = songPath;
+    player.load();
+  });
+
+  socket.on('playSong', () => {
+    player.play();
+  });
+
+  player.addEventListener('canplaythrough', () => {
+    socket.emit('clientSongLoaded');
+  })
+  */
+
