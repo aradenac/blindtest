@@ -3,11 +3,33 @@ head
   meta(charset='utf8')
   title test audio html5 player
   script(src='https://code.jquery.com/jquery-3.5.0.min.js' integrity='sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=' crossorigin='anonymous')
-audio#audioPlayer(controls='' oncanplaythrough='playTrack()')
-  source(src='./s1.mp3' type='audio/mpeg')
+audio#audioPlayer(controls='')
   |           Your browser does not support the audio tag
+
+button(onclick="playTrack()" text="play")
+
 script.
-  var player = $('#audioPlayer')[0];
-  function playTrack() {
-  player.play();
+  var $player = $('#audioPlayer');
+  var player = $player[0];
+
+  $player.on('canplaythrough', () => {
+    // notify server
+  })
+
+  function changeTrack() {
+    player.src = '../music/m1.mp3';
+    player.load();
   }
+
+  function playTrack() {
+    player.play();
+    setTimeout(changeTrack, 3000);
+  }
+
+  changeTrack();
+
+
+  /*
+  $player.on('canplaythrough', ()=>{
+    player.play();
+  })*/
