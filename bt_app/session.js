@@ -7,6 +7,7 @@ const Debug = require('debug');
 
 const url = 'mongodb://192.168.0.10:27017';
 const debug = Debug('Session');
+var error = Debug('Session:error');
 
 class Session {
     constructor(){
@@ -56,6 +57,9 @@ class Session {
                 this.startGame();
                 client.close();
             })
+            .catch((err)=>{
+                error(err);
+            } );
         })
     }
     
@@ -126,6 +130,7 @@ class Session {
     }
     startGame(){
         debug('(re)starting game');
+        this.songs.sort(() => Math.random() - 0.5);
         this.songIdx = 0;
         this.startSong();
         this.runningGame = true;
