@@ -8,23 +8,30 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var sessions = require('./sessions.js');
 var Session = require('./session.js');
+var Debug = require('debug');
+
+var debug = Debug('App.js');
 
 var app = express();
 
 // view engine setup
+debug('setting views');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+debug('declaring middlewares');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+debug('Init routes');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // start a test game session
+debug('Creating a game Session');
 sessionTest = new Session();
 sessions.push(sessionTest);
 
