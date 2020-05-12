@@ -4,6 +4,7 @@ head
   title test audio html5 player
   script(src='https://code.jquery.com/jquery-3.5.0.min.js' integrity='sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=' crossorigin='anonymous')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js')
+  script(src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js")
 
 audio#audioPlayer
   |           Your browser does not support the audio tag
@@ -18,6 +19,13 @@ script.
   var player = $player[0];
 
   var socket = io();
+
+  socket.on('connect', ()=>{
+    var cookie = Cookies.get();
+    socket.emit('setCookie', JSON.stringify(cookie));
+    console.log(`send cookie ${cookie}`);
+  })
+
 
   $answer = $('#answer');
 
@@ -56,7 +64,9 @@ script.
 
     console.log(`submit answer: ${answer}`);
 
-    socket.emit('submitAnswer', {name: 'roger', answer: answer});
+    var userSession = Cookies.get('userSession');
+
+    socket.emit('submitAnswer', {answer: answer, userSession: userSession});
   }
 
   function changeTrack() {

@@ -9,13 +9,15 @@ var debug = require('debug')('bt-app:server');
 var http = require('http');
 var sessions = require('../sessions.js');
 var User = require('../user.js');
+var util = require('util');
+const base64url = require('base64url');
 
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
 /**
@@ -29,24 +31,37 @@ var io = require('socket.io')(server);
 
 // socket IO events
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  debug('a user connected, waiting for its cookie');
 
-  user = new User('roger');
-  user.socket = socket;
+  socket.on('setCookie', (cookie)=>{
+    var user;
+    debug(`cookie received: ${cookie}`)
 
-  sessions[0].addPlayer(user);
+    cookie = JSON.parse(cookie)
+    user = new User();
 
-  socket.on('disconnect', ()=>{
-    console.log("player disconnect");
-    sessions[0].delPlayer(user.name)
-  });
+    var {userSession} = cookie;
+    debug(`userSession ${userSession}`);
 
-  socket.emit('loadNextSong');
+    var userSession = JSON.parse(base64url.decode(userSession));
+    debug(`${util.inspect(userSession)}`);
+    user.name = userSession.pseudo;
+    user.socket = socket;
 
-  socket.on('clientSongLoaded', () => {
-    socket.emit('playSong');
-  });
-});
+    sessions[0].addPlayer(user);
+
+    socket.on('disconnect', ()=>{
+      debug("player disconnect");
+      sessions[0].delPlayer(user.name)
+    });
+
+    socket.emit('loadNextSong');
+
+    socket.on('clientSongLoaded', () => {
+      socket.emit('playSong');
+    })
+  })
+})
 
 
 
