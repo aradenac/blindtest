@@ -1,0 +1,102 @@
+doctype html
+html(lang="fr")
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initia-scale=1.0')
+    title Session Game | WhatSong
+    script(src='https://code.jquery.com/jquery-3.5.0.min.js' integrity='sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=' crossorigin='anonymous')
+    link(rel='icon', type='image/png', href='favicon.png')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js')
+    script(src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js")
+
+  body
+    
+    h2 What the Game is on WhatSong, Watson ?
+    p.
+      Vous êtes actuellement en direct sur la seule et unique session de jeu sur le site. 
+    p.
+      Attendez un peu que la prochaine chanson démarre, puis tapez votre réponse dans la rectangle et tapez sur <ENTER> (pas trop fort non plus;) ).
+
+    p.
+      Let the Game begin !
+
+    audio#audioPlayer
+      | Your browser does not support the audio tag
+
+    p 
+    p#serverMessage yolo
+    input#answer
+
+    script.
+      var $srvMsg = $('#serverMessage');
+
+      var $player = $('#audioPlayer');
+      var player = $player[0];
+
+      var socket = io();
+
+      socket.on('connect', ()=>{
+        var cookie = Cookies.get();
+        socket.emit('setCookie', JSON.stringify(cookie));
+        console.log(`send cookie ${cookie}`);
+      })
+
+      $answer = $('#answer');
+
+      $answer.on('keyup', (event)=>{
+        if (event.keyCode == 13) {
+          event.preventDefault();
+          submitAnswer();
+        }
+      })
+
+      socket.on('answerResponse', (result) => {
+        console.log(`server answer eval: ${result}`);
+        $srvMsg.text(`${result}`);
+      });
+
+      socket.on('startSong', (song) => {
+        console.log(`server order play song: ${song}`);
+        player.src = 'music/'+song;
+        player.load();
+        player.play();
+        $answer.val('');
+        $srvMsg.text('');
+      });
+
+      socket.on('stopSong', ()=>{
+        console.log('server order stop song');
+        player.pause();
+      });
+
+      $player.on('canplaythrough', () => {
+        // notify server
+      });
+
+      function submitAnswer() {
+        var answer = $('#answer').val();
+
+        console.log(`submit answer: ${answer}`);
+
+        var userSession = Cookies.get('userSession');
+
+        socket.emit('submitAnswer', {answer: answer, userSession: userSession});
+      }
+
+      function changeTrack() {
+        player.src = '../music/m1.mp3';
+        player.load();
+      }
+
+      function playTrack() {
+        player.play();
+        setTimeout(changeTrack, 3000);
+      }
+
+      changeTrack();
+
+
+      /*
+      $player.on('canplaythrough', ()=>{
+        player.play();
+      })*/

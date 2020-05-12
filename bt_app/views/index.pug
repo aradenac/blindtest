@@ -1,88 +1,65 @@
 doctype html
-head
-  meta(charset='utf8')
-  title test audio html5 player
-  script(src='https://code.jquery.com/jquery-3.5.0.min.js' integrity='sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=' crossorigin='anonymous')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js')
-  script(src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js")
+html(lang="fr")
+  head
+    meta(charset='utf-8')
+    meta(name='description' content="Blindtest entre amis,  affrontez d'autres aficionados de la musique en ligne, créez vos playlists et parties privée. Gratuit et sans inscription évidemment !")
+    meta(name='viewport' content='width=device-width, initia-scale=1.0')
+    title WhatSong | Blindtest multijoueurs entre amis / en public
+    link(rel='icon' type='image/png' href='favicon.ico')
+    link(rel='apple-touch-icon' href='favicon.ico')
+    link(rel='canonical' href='https://www.whatsong.fr')
 
-audio#audioPlayer
-  |           Your browser does not support the audio tag
+  body
+    section
+      h1 WhatSong | Blindtests multijoueurs entre amis / en public
 
-p#serverMessage yolo
-input#answer
+      h2 What the Game is on WhatSong, Watson ?
+      p.
+        Découvrez un large panel de blindtests constamment renouvelés.
+      p Jouez avec vos amis, créez des parties privées.
+      p Affrontez d'autres joueurs en ligne sur les parties publiques.
+      p Convivialité assurée pour le multijoueur !
 
-script.
-  var $srvMsg = $('#serverMessage');
+      p.
+        Vous êtes actuellement en direct sur la seule et unique session de jeu sur le site. 
+      p.
+        Attendez un peu que la prochaine chanson démarre, puis tapez votre réponse dans la rectangle et tapez sur <ENTER> (pas trop fort non plus;) ).
 
-  var $player = $('#audioPlayer');
-  var player = $player[0];
+      p.
+        Let the Game begin !
 
-  var socket = io();
+    section
+      a(href='https://www.google.fr' title="google") an external link
+      a(href='/session' title='session') Enter the session
+      a(href='/contact' title='contact') contact
+      a(href='/help' title='help') help
+      a(href='/privacy' title='privacy') privacy
+      a(href='/privateSession' title='privateSession') partie privée
+      a(href='/bugs', title='bugs') Vous avez trouvé un bug ?
+      a(href='/suggestions', title='bugs') Boîte à idées
 
-  socket.on('connect', ()=>{
-    var cookie = Cookies.get();
-    socket.emit('setCookie', JSON.stringify(cookie));
-    console.log(`send cookie ${cookie}`);
-  })
+    section
+      p.
+        Maecenas consectetur nibh vitae quam gravida aliquam. Donec sit amet nisi odio. Duis finibus magna sit amet lorem dignissim ultrices. Vivamus fermentum orci pharetra, imperdiet felis et, tristique tellus. Maecenas quis leo eget sem euismod vulputate. Nulla eu luctus erat. Vestibulum euismod vehicula erat. Pellentesque dictum sodales mi, vel consequat nulla consectetur at. Mauris nisi felis, rutrum blandit mi sed, laoreet ultricies nisi. Proin ut ultrices nisi. In pellentesque purus sed efficitur consectetur. Donec porttitor ante leo, quis eleifend lectus mollis lobortis. Suspendisse ultricies tortor nibh, in hendrerit leo cursus tempor.
+      p.
+        Ut et maximus sapien. Maecenas sagittis massa ut augue maximus cursus. Quisque vitae est quam. Quisque eleifend luctus lacus, et commodo justo iaculis ut. Nullam volutpat suscipit dolor, at blandit tortor porttitor vitae. Vestibulum purus ipsum, feugiat id tincidunt at, auctor sed nisl. Ut ultricies nec risus sit amet ornare. Nulla feugiat diam diam, et euismod eros ullamcorper quis. Duis sed lorem vitae augue accumsan euismod. Quisque nunc massa, interdum eu auctor eu, blandit ut nunc. Pellentesque ut hendrerit nulla, ac laoreet nunc.
+      p.
+        Nulla sed ex euismod, sagittis ipsum id, consequat urna. Morbi in massa eu dui luctus dapibus vitae vitae orci. Curabitur nec sollicitudin neque, et auctor nisi. Vestibulum tincidunt dolor tempus scelerisque tempor. Integer vestibulum elementum aliquet. Nulla interdum erat eu nisl hendrerit bibendum. Aenean accumsan posuere ipsum vel commodo. Nulla egestas, nunc vitae commodo imperdiet, ligula nisl maximus diam, nec lacinia mauris est quis quam. In aliquet nulla non nulla molestie pellentesque. Aliquam pulvinar massa dapibus, cursus mauris in, euismod nisl. Donec ac velit facilisis, placerat erat non, congue nulla. Phasellus elementum scelerisque odio, eget rhoncus orci.
+      p.
+        Etiam porta urna eu efficitur lacinia. Suspendisse potenti. Curabitur consequat libero sed augue pulvinar, vel dictum turpis gravida. Cras pulvinar justo urna, et dictum risus elementum ut. Phasellus posuere, metus id congue efficitur, justo felis pharetra nisi, et dapibus nunc elit id diam. Vestibulum at libero nec urna semper suscipit. Duis hendrerit, orci id varius vestibulum, lorem est ullamcorper nibh, ut dapibus nibh sapien at neque. Maecenas nec tincidunt elit, ut tempor est.
+      p.
+        Sed fringilla eros in neque dignissim faucibus. Quisque malesuada venenatis nulla ac semper. Etiam scelerisque lacus ut maximus finibus. Cras efficitur sed erat vel gravida. Etiam aliquet ullamcorper tempor. Donec eu velit luctus, cursus ante sit amet, semper est. In sodales nulla a dolor pharetra pellentesque. Suspendisse potenti. Ut facilisis quam ac ipsum rutrum egestas. Proin ac lacinia justo. In laoreet mauris in semper tincidunt. Mauris turpis elit, faucibus eget enim vitae, porttitor tincidunt justo. Donec nec dui in quam pellentesque molestie sit amet eget velit. Aliquam porta tellus urna, ut facilisis neque egestas in.
 
+        Mauris elementum quis justo quis auctor. Sed nibh tellus, iaculis pretium quam vel, tincidunt eleifend risus. Phasellus ut commodo mauris. Sed sit amet erat nisi. Etiam non faucibus ipsum. Vivamus interdum sit amet velit sit amet sagittis. Sed sit amet condimentum justo. Suspendisse consequat massa ac maximus pulvinar. Curabitur quis varius purus. Proin fermentum tellus ut felis sagittis, vitae pharetra nisi interdum. Morbi eget nisi sed nunc convallis tempor. Donec porttitor, sapien porttitor lobortis placerat, ligula massa fringilla justo, hendrerit commodo arcu nunc at nisi. Phasellus tristique purus orci, vel ullamcorper quam tincidunt vel. Morbi nec tortor dignissim, varius felis eget, ullamcorper diam. In id sapien at odio ullamcorper rutrum quis accumsan sapien.
 
-  $answer = $('#answer');
+        Duis ultrices mi non tortor porttitor, eu fermentum purus maximus. Mauris ornare, massa vel elementum convallis, justo lectus faucibus mi, sit amet convallis turpis tellus a est. Fusce pretium elit a ultricies lacinia. Mauris dignissim, lacus non venenatis bibendum, leo magna semper justo, quis suscipit justo eros quis tortor. Sed sed bibendum sem, vehicula auctor neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Pellentesque metus erat, gravida ultrices porttitor eget, vehicula in ante. Donec vulputate enim vel facilisis vehicula. Vivamus enim ex, pretium eget sodales vel, consectetur vel tellus. Curabitur eget volutpat odio.
 
-  $answer.on('keyup', (event)=>{
-    if (event.keyCode == 13) {
-      event.preventDefault();
-      submitAnswer();
-    }
-  })
+        Donec ut lorem feugiat nulla congue posuere sollicitudin at urna. Morbi egestas dictum ipsum eu volutpat. Integer vel gravida odio. Maecenas ullamcorper hendrerit est sed sagittis. Sed eleifend orci dolor, a dapibus dui tincidunt at. Nullam semper ipsum sit amet ullamcorper gravida. Nunc a tellus a quam rutrum tincidunt. Aenean eleifend mauris ante, ac molestie turpis aliquam ut. Aliquam eget lorem vel sapien fermentum mattis eget non quam. Ut ultrices accumsan ex non sodales. Morbi id scelerisque arcu. Suspendisse eu ante iaculis, iaculis arcu id, ultricies odio. Nam accumsan nisi vitae arcu malesuada, sed tristique libero eleifend.
 
-  socket.on('answerResponse', (result) => {
-    console.log(`server answer eval: ${result}`);
-    $srvMsg.text(`${result}`);
-  });
+        Suspendisse consequat euismod consectetur. Proin ac nisi maximus ex rutrum euismod a et orci. Sed vel malesuada arcu. Curabitur ut nibh non mauris fringilla eleifend quis sed sem. Aenean eget pretium mauris. In hac habitasse platea dictumst. Nam quis condimentum lacus. Proin faucibus ultricies placerat.
 
-  socket.on('startSong', (song) => {
-    console.log(`server order play song: ${song}`);
-    player.src = 'music/'+song;
-    player.load();
-    player.play();
-    $answer.val('');
-    $srvMsg.text('');
-  });
+        Sed cursus nibh magna, a porttitor leo rhoncus sed. Suspendisse elit nisi, suscipit sed feugiat vitae, tincidunt vitae velit. Sed et neque tincidunt, suscipit felis sit amet, lobortis orci. Vivamus interdum sit amet eros vel tincidunt. Vivamus sodales, purus a vestibulum egestas, tortor velit mattis quam, sit amet feugiat nunc mi vitae nibh. Suspendisse molestie purus eu lorem ornare eleifend. Sed ultricies elit dictum, pellentesque libero ut, feugiat justo. Nullam venenatis leo id dolor finibus molestie.
 
-  socket.on('stopSong', ()=>{
-    console.log('server order stop song');
-    player.pause();
-  });
+        Ut placerat tincidunt scelerisque. Nam nec dui id tortor interdum vehicula. Duis fringilla viverra mollis. Vivamus volutpat, sem eu placerat viverra, tellus felis condimentum felis, id egestas odio urna sed neque. Ut in aliquam mauris. Mauris fringilla tempus luctus. Vestibulum at iaculis enim. Suspendisse magna risus, blandit vitae interdum vulputate, bibendum tempus metus. Etiam quis magna tincidunt orci interdum commodo sit amet vel ligula. Nullam eget purus convallis, pharetra augue sit amet, varius leo. Etiam sit amet erat volutpat, finibus est et, mattis massa. Phasellus neque turpis, hendrerit ac nulla tristique, ornare bibendum eros.
 
-  $player.on('canplaythrough', () => {
-    // notify server
-  });
-
-  function submitAnswer() {
-    var answer = $('#answer').val();
-
-    console.log(`submit answer: ${answer}`);
-
-    var userSession = Cookies.get('userSession');
-
-    socket.emit('submitAnswer', {answer: answer, userSession: userSession});
-  }
-
-  function changeTrack() {
-    player.src = '../music/m1.mp3';
-    player.load();
-  }
-
-  function playTrack() {
-    player.play();
-    setTimeout(changeTrack, 3000);
-  }
-
-  changeTrack();
-
-
-  /*
-  $player.on('canplaythrough', ()=>{
-    player.play();
-  })*/
+        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam neque arcu, varius in est id, condimentum finibus nisi. Proin laoreet tortor a ipsum fringilla, nec feugiat felis porttitor. Praesent tincidunt vitae ante.

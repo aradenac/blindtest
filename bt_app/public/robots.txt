@@ -1,0 +1,2 @@
+User-Agent: *
+Sitemap: http://www.mon-domaine.fr/sitemap.xml

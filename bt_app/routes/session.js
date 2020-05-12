@@ -5,9 +5,14 @@ var util = require('util');
 
 var debugCookies = Debug('cookies');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+    debugCookies(`${util.inspect(req.cookies)}`); 
+    if ('userSession' in req.cookies) {
+        res.render('session');
+    }
+    else {
+        res.render('choosePseudo');
+    }
 });
 
 module.exports = router;

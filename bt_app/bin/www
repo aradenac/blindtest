@@ -4,27 +4,38 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var {app, httpApp} = require('../app');
 var debug = require('debug')('bt-app:server');
 var http = require('http');
+var https = require('https');
 var sessions = require('../sessions.js');
 var User = require('../user.js');
 var util = require('util');
 const base64url = require('base64url');
+var fs = require('fs');
 
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '80');
+var port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+//var server = http.createServer(app);
+var path = '/etc/letsencrypt/live/www.whatsong.fr/';
+var server = https.createServer({
+  key: fs.readFileSync(path + 'privkey.pem'),
+  cert: fs.readFileSync(path + 'fullchain.pem')
+}, app)
+
+http.createServer(httpApp).listen(httpApp.get('port'), ()=>{
+  debug(`HTTP server listening on port ${httpApp.get('port')}`)
+})
 
 var io = require('socket.io')(server);
 

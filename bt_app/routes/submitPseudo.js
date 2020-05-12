@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
       res.cookie('userSession', userSession);
     }
 
-    res.render('index');
+    res.redirect('/session');
 });
 
 module.exports = router;

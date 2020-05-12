@@ -8,13 +8,25 @@ var cookieParser = require('cookie-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var pseudoRouter = require('./routes/submitPseudo');
+var sessionRouter = require('./routes/session');
 var sessions = require('./sessions.js');
 var Session = require('./session.js');
 var Debug = require('debug');
+var compression = require('compression');
 
 var debug = Debug('App.js');
 
 var app = express();
+var httpApp = express();
+
+app.disable('x-powered-by')
+httpApp.disable('x-powered-by')
+
+httpApp.set('port', process.env.PORT || 80);
+httpApp.use(express.static(path.join(__dirname, 'public')));
+httpApp.get("*", function (req, res, next) {
+    res.redirect("https://" + req.headers.host + "/");
+});
 
 // view engine setup
 debug('setting views');
@@ -22,6 +34,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 debug('declaring middlewares');
+app.use(compression());
+httpApp.use(compression());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,6 +47,7 @@ debug('Init routes');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/submitPseudo', pseudoRouter);
+app.use('/session', sessionRouter);
 
 // start a test game session
 debug('Creating a game Session');
@@ -41,6 +56,7 @@ sessions.push(sessionTest);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  debug(`remote ip: ${req.ip}`)
   next(createError(404));
 });
 
@@ -55,4 +71,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = {app, httpApp};
