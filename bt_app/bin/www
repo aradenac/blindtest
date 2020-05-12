@@ -27,7 +27,7 @@ app.set('port', port);
  */
 
 //var server = http.createServer(app);
-var path = '/etc/letsencrypt/live/www.whatsong.fr/';
+var path = '/etc/letsencrypt/live/whatsong.fr/';
 var server = https.createServer({
   key: fs.readFileSync(path + 'privkey.pem'),
   cert: fs.readFileSync(path + 'fullchain.pem')
