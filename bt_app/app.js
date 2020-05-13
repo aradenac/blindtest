@@ -52,7 +52,7 @@ app.use(csp({
   directives: {
     defaultSrc: ["'self'", 'https://whatsong.fr/'],
     scriptSrc: ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'www.google-analytics.com'],
-    styleSrc: ['style.com'],
+    styleSrc: ["'self'"],
     fontSrc: ["'self'"],
     baseUri: ["'self'"],
     imgSrc: ["'self'"],
