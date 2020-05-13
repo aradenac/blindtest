@@ -13,7 +13,10 @@ var User = require('../user.js');
 var util = require('util');
 const base64url = require('base64url');
 var fs = require('fs');
+var spdy = require('spdy');
 
+
+var path = '/etc/letsencrypt/live/whatsong.fr/';
 
 /**
  * Get port from environment and store in Express.
@@ -23,15 +26,33 @@ var port = normalizePort(process.env.PORT || '443');
 app.set('port', port);
 
 /**
+ * Create SPDY server
+ */
+var server = spdy.createServer({
+  key: fs.readFileSync(path + 'privkey.pem'),
+  cert: fs.readFileSync(path + 'fullchain.pem'),
+  spdy: {
+    protocols: ['h2', 'spdy/3.1', 'http/1.1'],
+    plain: false,
+    connection: {
+      windowSize: 1024*1024,
+      autoSpdy31: false
+    }
+  }
+}, app)
+
+
+/**
  * Create HTTP server.
  */
 
 //var server = http.createServer(app);
-var path = '/etc/letsencrypt/live/whatsong.fr/';
+/*
 var server = https.createServer({
   key: fs.readFileSync(path + 'privkey.pem'),
   cert: fs.readFileSync(path + 'fullchain.pem')
 }, app)
+*/
 
 http.createServer(httpApp).listen(httpApp.get('port'), ()=>{
   debug(`HTTP server listening on port ${httpApp.get('port')}`)
