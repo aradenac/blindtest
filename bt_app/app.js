@@ -14,6 +14,8 @@ var Session = require('./session.js');
 var Debug = require('debug');
 var compression = require('compression');
 var hsts = require('hsts');
+const csp = require('helmet-csp');
+const dontSniffMimetype = require('dont-sniff-mimetype')
 
 var debug = Debug('App.js');
 
@@ -45,6 +47,45 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 debug('declaring middlewares');
+app.use(csp({
+  // Specify directives as normal.
+  directives: {
+    defaultSrc: ["'self'", 'https://whatsong.fr/'],
+    scriptSrc: ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'www.google-analytics.com'],
+    styleSrc: ['style.com'],
+    fontSrc: ["'self'"],
+    baseUri: ["'self'"],
+    imgSrc: ["'self'"],
+    sandbox: ['allow-forms', 'allow-scripts'],
+    reportUri: '/report-violation',
+    objectSrc: ["'none'"],
+    frameAncestors: ["'none'"],
+    upgradeInsecureRequests: true,
+    workerSrc: false  // This is not set.
+  },
+
+  // This module will detect common mistakes in your directives and throw errors
+  // if it finds any. To disable this, enable "loose mode".
+  loose: false,
+
+  // Set to true if you only want browsers to report errors, not block them.
+  // You may also set this to a function(req, res) in order to decide dynamically
+  // whether to use reportOnly mode, e.g., to allow for a dynamic kill switch.
+  reportOnly: false,
+
+  // Set to true if you want to blindly set all headers: Content-Security-Policy,
+  // X-WebKit-CSP, and X-Content-Security-Policy.
+  setAllHeaders: false,
+
+  // Set to true if you want to disable CSP on Android where it can be buggy.
+  disableAndroid: false,
+
+  // Set to false if you want to completely disable any user-agent sniffing.
+  // This may make the headers less compatible but it will be much faster.
+  // This defaults to `true`.
+  browserSniff: true
+}))
+app.use(dontSniffMimetype())
 app.use(compression());
 app.use(hsts({maxAge: 15552000}))
 app.use(logger('dev'));
