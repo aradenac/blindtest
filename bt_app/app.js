@@ -25,14 +25,19 @@ httpApp.disable('x-powered-by')
 
 httpApp.set('port', process.env.PORT || 80);
 httpApp.use(express.static(path.join(__dirname, 'public')));
-httpApp.use(hsts({maxAge: 15552000})
+httpApp.use(hsts({maxAge: 15552000}))
 httpApp.use(compression());
 httpApp.all("*", function (req, res, next) {
-  var hn = req.headers.host;
-  if (hn.match(/^www/) !== null) {
-    hn = hn.replace(/^www\./, '')
+  if(req.url === "/sitemap.xml"){
+    req.pipe(filed('./public/sitemap.xml')).pipe(resp);
   }
-  res.redirect(301, "https://" + hn + "/");
+  else {
+    var hn = req.headers.host;
+    if (hn.match(/^www/) !== null) {
+      hn = hn.replace(/^www\./, '')
+    }
+    res.redirect(301, "https://" + hn + "/");
+  }
 });
 // view engine setup
 debug('setting views');
@@ -41,7 +46,7 @@ app.set('view engine', 'pug');
 
 debug('declaring middlewares');
 app.use(compression());
-app.use(hsts({maxAge: 15552000})
+app.use(hsts({maxAge: 15552000}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

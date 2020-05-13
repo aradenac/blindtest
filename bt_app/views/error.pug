@@ -1,9 +1,18 @@
-//extends layout
+doctype(html)
+html
+  head
+    title Page inexistante
+  body
+    ///extends layout
 
-//.
-  block content
-    h1= message
-    h2= error.status
-    pre #{error.stack}
+    ///.
+      block content
+        h1= message
+        h2= error.status
+        pre #{error.stack}
+    section
+      p C'est fâcheux m'voyez, cette ressource n'est pas dispo ><'
 
-Whoops une erreur est survenue ><'
+      p 
+        a(href="/") Revenez par ici
+

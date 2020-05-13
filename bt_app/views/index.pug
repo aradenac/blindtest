@@ -1,6 +1,14 @@
 doctype html
 html(lang="fr")
   head
+    // Global site tag (gtag.js) - Google Analytics
+    script(async='' src='https://www.googletagmanager.com/gtag/js?id=UA-166316966-1')
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-166316966-1');
+
     meta(charset='utf-8')
     meta(name='description' content="Blindtest entre amis,  affrontez d'autres aficionados de la musique en ligne, créez vos playlists et parties privée. Gratuit et sans inscription évidemment !")
     meta(name='viewport' content='width=device-width, initia-scale=1.0')
@@ -11,6 +19,10 @@ html(lang="fr")
 
   body
     section
+      div(itemscope='' itemtype='http://schema.org/Organization')
+        a(itemprop='url' href='http://www.whatsong.fr/') Accueil WhatSong
+        img(itemprop='logo' src='/favicon.ico' alt='logoWhatSong')
+
       h1 WhatSong | Blindtests multijoueurs entre amis / en public
 
       h2 What the Game is on WhatSong, Watson ?
@@ -29,14 +41,32 @@ html(lang="fr")
         Let the Game begin !
 
     section
-      a(href='https://www.google.fr' title="google") an external link
-      a(href='/session' title='session') Enter the session
-      a(href='/contact' title='contact') contact
-      a(href='/help' title='help') help
-      a(href='/privacy' title='privacy') privacy
-      a(href='/privateSession' title='privateSession') partie privée
-      a(href='/bugs', title='bugs') Vous avez trouvé un bug ?
-      a(href='/suggestions', title='bugs') Boîte à idées
+      style.
+        nav {
+          font-size: 1.5em;
+        }
+        nav ul li a {
+          padding: 2em;
+        }
+
+      nav
+        ul
+          li
+            a(href='https://www.google.fr' title="google") an external link
+          li
+            a(href='/session' title='session') Enter the session
+          li
+            a(href='/contact' title='contact') contact
+          li
+            a(href='/help' title='help') help
+          li
+            a(href='/privacy' title='privacy') privacy
+          li
+            a(href='/privateSession' title='privateSession') partie privée
+          li
+            a(href='/bugs', title='bugs') Vous avez trouvé un bug ?
+          li
+            a(href='/suggestions', title='suggestions') Boîte à idées
 
     section
       p.
