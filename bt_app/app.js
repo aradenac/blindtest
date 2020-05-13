@@ -18,6 +18,7 @@ const csp = require('helmet-csp');
 const dontSniffMimetype = require('dont-sniff-mimetype')
 
 var debug = Debug('App.js');
+debug = console.log.bind(console);
 
 var app = express();
 var httpApp = express();
@@ -51,7 +52,7 @@ app.use(csp({
   // Specify directives as normal.
   directives: {
     defaultSrc: ["'self'", 'https://whatsong.fr/'],
-    scriptSrc: ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'www.google-analytics.com'],
+    scriptSrc: ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'www.google-analytics.com', 'code.jquery.com', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net'],
     styleSrc: ["'self'"],
     fontSrc: ["'self'"],
     baseUri: ["'self'"],
@@ -97,7 +98,7 @@ app.use(cookieParser());
 
 debug('Init routes');
 app.all('/*', function(req, res, next) {
-  console.log(req.headers.host);
+  debug(req.headers.host);
   if (req.headers.host.match(/^www/) !== null ) {
     res.redirect('https://' + req.headers.host.replace(/^www\./, '') + req.url);
   } else {

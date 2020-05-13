@@ -7,12 +7,13 @@ const util = require('util');
 const {encode, decode} = require('./cookies');
 
 const url = 'mongodb://192.168.0.10:27017';
-const debug = Debug('Session');
+var debug = Debug('Session');
+debug.log = console.log.bind(console);
 var error = Debug('Session:error');
 
 class Session {
   constructor(){
-    const client = new MongoClient(url);
+    const client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true});
     this.players = [];
     this.songs = [];
     this.songIdx = 0;

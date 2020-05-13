@@ -6,6 +6,7 @@ var User = require('../user');
 const base64url = require('base64url');
 
 var debug = Debug('routing:submitPseudo');
+debug.log = console.log.bind(console)
 
 var onlineUsers = [];
 
