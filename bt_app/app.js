@@ -122,7 +122,7 @@ debug('Init routes');
 app.all('/*', function(req, res, next) {
   debug(req.headers.host);
   if (req.headers.host.match(/^www/) !== null ) {
-    res.redirect('https://' + req.headers.host.replace(/^www\./, '') + req.url);
+    res.redirect(301, 'https://' + req.headers.host.replace(/^www\./, '') + req.url);
   } else {
     next();
   }
