@@ -79,7 +79,7 @@ app.use(csp({
     styleSrc: ["'self'"],
     fontSrc: ["'self'"],
     baseUri: ["'self'"],
-    imgSrc: ["'self'"],
+    imgSrc: ["'self'", 'www.google-analytics.com'],
     reportUri: '/report-violation',
     objectSrc: ["'none'"],
     frameAncestors: ["'none'"],
