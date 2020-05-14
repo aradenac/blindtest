@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www --https --redirect-http",
+    "dev": "pm2 start ./bin/www --watch -i max --update-env -- --http",
+    "prod": "pm2 start ./bin/www --watch -i max --update-env -- --https --redirect-http "
   },
   "dependencies": {
     "base64url": "^3.0.1",
@@ -24,6 +26,7 @@
     "socketio": "^1.0.0",
     "spdy": "^4.0.2",
     "ssl-root-cas": "^1.3.1",
-    "string-similarity": "^4.0.1"
+    "string-similarity": "^4.0.1",
+    "yargs": "^15.3.1"
   }
 }
