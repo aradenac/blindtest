@@ -73,6 +73,8 @@ app.use(csp({
   // Specify directives as normal.
   directives: {
     defaultSrc: ["'none'"],
+    connectSrc: ["'self'"],
+    mediaSrc: ["'self'"],
     scriptSrc: ["'self'", /*"'strict-dynamic'",*/ "'unsafe-inline'", 'https://www.googletagmanager.com', 'www.google-analytics.com', 'code.jquery.com', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net'],
     styleSrc: ["'self'"],
     fontSrc: ["'self'"],
