@@ -16,6 +16,11 @@ var compression = require('compression');
 var hsts = require('hsts');
 const csp = require('helmet-csp');
 const dontSniffMimetype = require('dont-sniff-mimetype')
+const requestIp = require('request-ip')
+const helmet = require('helmet')
+const expectCt = require('expect-ct')
+const featurePolicy = require('feature-policy')
+
 
 var debug = Debug('App.js');
 debug = console.log.bind(console);
@@ -23,12 +28,22 @@ debug = console.log.bind(console);
 var app = express();
 var httpApp = express();
 
+app.use(helmet())
+app.use(expectCt({
+  enforce: true,
+  maxAge: 86400
+}))
+app.use(featurePolicy({
+  features: {
+    fullscreen: ["'self'"]
+  }
+}))
+
 app.disable('x-powered-by')
 httpApp.disable('x-powered-by')
 
 httpApp.set('port', process.env.PORT || 80);
 httpApp.use(express.static(path.join(__dirname, 'public')));
-httpApp.use(hsts({maxAge: 15552000}))
 httpApp.use(compression());
 httpApp.all("*", function (req, res, next) {
   if(req.url === "/sitemap.xml"){
@@ -48,16 +63,21 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 debug('declaring middlewares');
+app.use(requestIp.mw())
+app.use(function(req, res, next) {
+  const ip = req.clientIp;
+  debug(`client ip: ${ip}`);
+  next();
+})
 app.use(csp({
   // Specify directives as normal.
   directives: {
-    defaultSrc: ["'self'", 'https://whatsong.fr/'],
-    scriptSrc: ["'self'", "'unsafe-inline'", 'https://www.googletagmanager.com', 'www.google-analytics.com', 'code.jquery.com', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net'],
+    defaultSrc: ["'none'"],
+    scriptSrc: ["'self'", /*"'strict-dynamic'",*/ "'unsafe-inline'", 'https://www.googletagmanager.com', 'www.google-analytics.com', 'code.jquery.com', 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net'],
     styleSrc: ["'self'"],
     fontSrc: ["'self'"],
     baseUri: ["'self'"],
     imgSrc: ["'self'"],
-    sandbox: ['allow-forms', 'allow-scripts'],
     reportUri: '/report-violation',
     objectSrc: ["'none'"],
     frameAncestors: ["'none'"],
@@ -88,7 +108,7 @@ app.use(csp({
 }))
 app.use(dontSniffMimetype())
 app.use(compression());
-app.use(hsts({maxAge: 15552000}))
+app.use(hsts({maxAge: 31536000, includeSubDomains: true, preload: true}))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
