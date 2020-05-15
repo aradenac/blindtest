@@ -15,16 +15,19 @@ html(lang="fr")
     p#uploadMsg #{uploadMsg}
     form(id="songUploadForm" action="/submit/song" method="post" enctype="multipart/form-data")
       input(id="songInput" type="file" name="song" value="Choose a file")
-      input(type="submit" name="submit" value="Upload" disabled)
+      input(id="submitButton" type="submit" name="submit" value="Upload" disabled)
     script.
       var file = document.getElementById('songInput');
       $('#songInput').val('')
     
       file.addEventListener("change", function(e){
+        enableForm(true);
+
         $('#uploadMsg').text('')
         var f = event.target.files[0];
         jsmediatags.read(f, {
           onSuccess: function(tag) {
+            enableForm(true)
             if (!('artist' in tag.tags) || !('title' in tag.tags)){
               $('#uploadMsg').text('Mising title/artist in mp3 metadata')
               $('#songInput').val('')
@@ -36,9 +39,24 @@ html(lang="fr")
             }
           },
           onError: function(error) {
+            enableForm(false)
             $('#uploadMsg').text('Invalid file')
             $('#songInput').val('')
             $('#songUploadForm :submit').prop('disabled', true)
           }
          })
         }, false)
+
+      function enableForm(b){
+        var songInput = $('#songInput')
+        var submitButton = $('#submitButton')
+
+        var arr = [songInput, submitButton]
+
+        for (e of arr) {
+          if (!b)
+            e.prop('disabled', true);
+          else
+            e.prop('disabled', false);
+        }
+       }
