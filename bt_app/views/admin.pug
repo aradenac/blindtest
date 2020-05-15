@@ -14,7 +14,7 @@ html(lang="fr")
 
     p#uploadMsg #{uploadMsg}
     form(id="songUploadForm" action="/submit/song" method="post" enctype="multipart/form-data")
-      input(id="songInput" type="file" name="song" value="Choose a file")
+      input(id="songInput" type="file" name="song" value="Choose a file" autofocus)
       input(id="submitButton" type="submit" name="submit" value="Upload" disabled)
     script.
       var file = document.getElementById('songInput');
