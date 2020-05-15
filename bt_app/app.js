@@ -135,14 +135,16 @@ for (app of apps){
   if (app.get('port') == 80 && argv['redirect-http']) 
     console.log('passing http routing (301 rediretion)');
 
-  if(app.get('port') == 443) {
-    app.use(ipgeoblock({
-      geolite2: "./GeoLite2-Country.mmdb",
-      allowedCountries: ['FR']
-    }, function (req, res) {
-      res.statusCode = 418;
-      res.end();
-    }));
+  if (process.env.GEOBLOCK){
+    if(app.get('port') == 443) {
+      app.use(ipgeoblock({
+        geolite2: "./GeoLite2-Country.mmdb",
+        allowedCountries: ['FR']
+      }, function (req, res) {
+        res.statusCode = 418;
+        res.end();
+      }));
+    }
   }
 
   // for parsing application/json
