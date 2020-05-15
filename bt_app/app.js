@@ -132,16 +132,18 @@ if(argv.https){
 }
 
 for (app of apps){
-  app.use(ipgeoblock({
-    geolite2: "./GeoLite2-Country.mmdb",
-    allowedCountries: ['FR']
-  }, function (req, res) {
-    res.statusCode = 418;
-    res.end();
-  }));
-
   if (app.get('port') == 80 && argv['redirect-http']) 
     console.log('passing http routing (301 rediretion)');
+
+  if(app.get('port') == 443) {
+    app.use(ipgeoblock({
+      geolite2: "./GeoLite2-Country.mmdb",
+      allowedCountries: ['FR']
+    }, function (req, res) {
+      res.statusCode = 418;
+      res.end();
+    }));
+  }
 
   // for parsing application/json
   app.use(bodyParser.json());
