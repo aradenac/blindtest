@@ -136,8 +136,8 @@ for (app of apps){
     geolite2: "./GeoLite2-Country.mmdb",
     allowedCountries: ['FR']
   }, function (req, res) {
-    res.statusCode = 500;
-    res.end("Internal Server Error");
+    res.statusCode = 418;
+    res.end();
   }));
 
   if (app.get('port') == 80 && argv['redirect-http']) 
