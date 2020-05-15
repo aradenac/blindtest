@@ -21,7 +21,7 @@ const helmet = require('helmet')
 const expectCt = require('expect-ct')
 const featurePolicy = require('feature-policy')
 const argv = require('yargs').argv
-
+var ipgeoblock = require('node-ipgeoblock')
 
 var debug = Debug('App.js');
 
@@ -62,6 +62,11 @@ if(argv.https){
   httpsApp = express();
   var app = httpsApp;
   app.set('port', process.env.HTTPS_PORT || 443);
+  
+  app.use(ipgeoblock({
+    geolite2: "./GeoLite2-Country.mmdb",
+    allowedCountries: ['FR']
+  }))
 
   app.use(helmet())
   app.use(expectCt({
