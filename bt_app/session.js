@@ -4,7 +4,7 @@ const {compareTwoStrings} = require('string-similarity');
 const assert = require('assert');
 const Debug = require('debug');
 const util = require('util');
-const {encode, decode} = require('./cookies');
+const {eCookie, dCookie} = require('./cookies');
 
 const url = 'mongodb://192.168.0.10:27017';
 var debug = Debug('Session');
@@ -118,7 +118,7 @@ submitAnswer(params) {
 
   debug(`submitAnswer params: ${util.inspect(params)}`);
 
-  var userSession = decode(params.userSession);
+  var userSession = dCookie(params.userSession);
   debug(`userSession: ${userSession}`);
 
   var name = userSession.pseudo;

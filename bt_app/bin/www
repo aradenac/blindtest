@@ -11,7 +11,7 @@ var https = require('https');
 var sessions = require('../sessions.js');
 var User = require('../user.js');
 var util = require('util');
-const base64url = require('base64url');
+var {dCookie} = require('../cookies')
 var fs = require('fs');
 var spdy = require('spdy');
 
@@ -65,7 +65,7 @@ for (server of servers) {
       var {userSession} = cookie;
       debug(`userSession ${userSession}`);
 
-      var userSession = JSON.parse(base64url.decode(userSession));
+      var userSession = dCookie(userSession);
       debug(`${util.inspect(userSession)}`);
       user.name = userSession.pseudo;
       user.socket = socket;

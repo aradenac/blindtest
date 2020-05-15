@@ -3,7 +3,7 @@ var router = express.Router();
 var Debug = require('debug');
 var util = require('util');
 var User = require('../user');
-const base64url = require('base64url');
+var eCookie = require('../cookies').eCookie;
 
 var debug = Debug('routing:submitPseudo');
 debug.log = console.log.bind(console)
@@ -27,7 +27,7 @@ router.post('/', function(req, res, next) {
     if (sameName == false) {
       newUser.name = name;
       onlineUsers.push(newUser);
-      var userSession = base64url.encode(JSON.stringify({pseudo: name}));
+      var userSession = eCookie({pseudo: name});
       
       debug(`setting cookie userSession: ${userSession}`);
       res.cookie('userSession', userSession);

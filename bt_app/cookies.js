@@ -1,11 +1,11 @@
-const base64url = require('base64url')
+var base64url = require('base64url');
 
-function encode(obj) {
+function eCookie(obj) {
   return base64url.encode(JSON.stringify(obj));
 }
 
-function decode(str) {
+function dCookie(str) {
   return JSON.parse(base64url.decode(str));
 }
 
-module.exports = {encode, decode};
+module.exports = {eCookie, dCookie};
