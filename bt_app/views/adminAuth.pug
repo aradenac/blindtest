@@ -1,0 +1,11 @@
+doctype(html)
+html
+  head
+    title Admin | WhatSong
+    link(rel='stylesheet' type='text/css' href='/stylesheets/style.css')
+  body
+    form(action="/submit/admin/auth" method="post")
+      input(type="text" placeHolder="name" name="name")
+      input(type='password' placeHolder="password" name="password")
+      input(type='submit' value="go")
+

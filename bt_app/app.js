@@ -22,6 +22,7 @@ const helmet = require('helmet')
 const expectCt = require('expect-ct')
 const featurePolicy = require('feature-policy')
 const argv = require('yargs').argv
+var bodyParser = require('body-parser')
 var ipgeoblock = require('node-ipgeoblock')
 
 var debug = Debug('App.js');
@@ -141,6 +142,12 @@ for (app of apps){
 
   if (app.get('port') == 80 && argv['redirect-http']) 
     console.log('passing http routing (301 rediretion)');
+
+  // for parsing application/json
+  app.use(bodyParser.json());
+
+  // for parsing application/xwww-
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'pug');

@@ -2,8 +2,12 @@ var express = require('express');
 var router = express.Router();
 var Debug = require('debug');
 var util = require('util');
+var User = require('../user')
+var {dCookie} = require('../cookies')
 
-var debugCookies = Debug('cookies');
+var error = Debug('index.js')
+var debug = Debug('index.js')
+debug.log = console.log.bind(console)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -27,7 +31,28 @@ router.get('/suggestions', function(req, res, next) {
 });
 
 router.get('/admin', (req, res, next) => {
-  res.render('admin');
+  try{
+    var userSession;
+
+    debug(`${util.inspect(req.cookies, false, null, true)}`)
+
+    if ('userSession' in req.cookies) {
+      userSession = dCookie(req.cookies.userSession)
+    }
+    debug(`${util.inspect(userSession, false, null, true)}`)
+
+    if (userSession && userSession.admin == true) {
+      debug('Admin cookie ok') 
+      res.render('admin')
+    }
+    else {
+      debug('No admin cookie')
+      res.render('adminAuth')  
+    }
+  }
+  catch(e){
+    error(e)
+  }
 })
 
 module.exports = router;
