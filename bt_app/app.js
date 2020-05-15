@@ -192,7 +192,7 @@ for (app of apps){
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
-    res.status(200 ||err.status || 500);
+    res.status(err.status || 500);
     res.render('error');
   });
 /*
