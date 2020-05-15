@@ -1,0 +1,44 @@
+doctype html
+html(lang="fr")
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initia-scale=1.0')
+    title Admin | WhatSong
+    link(rel='icon' type='image/png' href='/favicon.ico')
+    link(rel='apple-touch-icon' href='/favicon.ico')
+    link(rel='stylesheet' type='text/css' href='/stylesheets/style.css')
+    script(src='https://code.jquery.com/jquery-3.5.0.min.js' integrity='sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=' crossorigin='anonymous')
+    script(src=" https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.3/jsmediatags.min.js")
+  body
+    #outputDiv
+
+    p#uploadMsg #{uploadMsg}
+    form(id="songUploadForm" action="/submit/song" method="post" enctype="multipart/form-data")
+      input(id="songInput" type="file" name="song" value="Choose a file")
+      input(type="submit" name="submit" value="Upload" disabled)
+    script.
+      var file = document.getElementById('songInput');
+      $('#songInput').val('')
+    
+      file.addEventListener("change", function(e){
+        $('#uploadMsg').text('')
+        var f = event.target.files[0];
+        jsmediatags.read(f, {
+          onSuccess: function(tag) {
+            if (!('artist' in tag.tags) || !('title' in tag.tags)){
+              $('#uploadMsg').text('Mising title/artist in mp3 metadata')
+              $('#songInput').val('')
+              $('#songUploadForm :submit').prop('disabled', true)
+            }
+            else{
+              $('#uploadMsg').text('Ready for upload');
+              $('#songUploadForm :submit').prop('disabled', false)
+            }
+          },
+          onError: function(error) {
+            $('#uploadMsg').text('Invalid file')
+            $('#songInput').val('')
+            $('#songUploadForm :submit').prop('disabled', true)
+          }
+         })
+        }, false)

@@ -26,4 +26,8 @@ router.get('/suggestions', function(req, res, next) {
   res.render('suggestions');
 });
 
+router.get('/admin', (req, res, next) => {
+  res.render('admin');
+})
+
 module.exports = router;
