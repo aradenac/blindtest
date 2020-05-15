@@ -42,8 +42,11 @@ router.get('/admin', (req, res, next) => {
     debug(`${util.inspect(userSession, false, null, true)}`)
 
     if (userSession && userSession.admin == true) {
+      var msg="";
       debug('Admin cookie ok') 
-      res.render('admin')
+      if ('uploadMsg' in req.cookies)
+        msg = dCookie(req.cookies.uploadMsg)
+      res.render('admin', {uploadMsg: msg})
     }
     else {
       debug('No admin cookie')

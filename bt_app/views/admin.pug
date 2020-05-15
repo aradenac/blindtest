@@ -18,12 +18,18 @@ html(lang="fr")
       input(id="submitButton" type="submit" name="submit" value="Upload" disabled)
     script.
       var file = document.getElementById('songInput');
+      $('#songUploadForm :submit').prop('disabled', true)
       $('#songInput').val('')
-    
+
+      $('#submitButton').click(()=>{
+        $('#uploadMsg').text('Submitting ...')
+        $('#songUploadForm :submit').prop('disabled', true)
+      })
+
       file.addEventListener("change", function(e){
         enableForm(true);
 
-        $('#uploadMsg').text('')
+        $('#uploadMsg').text('Submitting ...')
         var f = event.target.files[0];
         jsmediatags.read(f, {
           onSuccess: function(tag) {
@@ -39,7 +45,7 @@ html(lang="fr")
             }
           },
           onError: function(error) {
-            enableForm(false)
+            enableForm(true)
             $('#uploadMsg').text('Invalid file')
             $('#songInput').val('')
             $('#songUploadForm :submit').prop('disabled', true)

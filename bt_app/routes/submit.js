@@ -42,12 +42,19 @@ router.post('/admin/auth', (req, res, next) => {
 
 router.post('/song', upload.single('song'), (req, res, next)=> {
   var msg;
-  debug(`Uploaded file: ${util.inspect(req.file, false, null, true)}`);
-  
-  if (req.file) {
-    mm.parseFile(req.file.path)
-    .then( metadata => {
 
+  debug(`Uploaded file: ${util.inspect(req.file, false, null, true)}`);
+
+  if (!('file' in req) ) {
+    msg = 'no file uploaded'
+    error(msg)
+
+    res.cookie('uploadMsg', eCookie(msg))
+    res.redirect(303, '/admin')
+  }
+  else {
+    mm.parseFile(req.file.path)
+    .then( (metadata) => {
       debug(`Metadata: ${util.inspect(metadata, true, null, true)}`)
 
       if (!('title' in metadata.common) || !('artist' in metadata.common)) {
@@ -56,18 +63,21 @@ router.post('/song', upload.single('song'), (req, res, next)=> {
       else {
         msg = `file ${req.file.originalname} successfuly uploaded` 
       }
-
-      res.render('admin', {uploadMsg: msg})
     })
     .catch( err => {
+      debug('catched an error :(')
+      error(err)
       error(err.message)
-      res.render('admin', {uploadMsg: 'Invalid File'})
+      msg = 'Could not read metadata on server :('
+    })
+    .finally(()=>{
+      debug(`redirecting /admin`)
+      res.cookie('uploadMsg', eCookie(msg))
+      res.redirect(303, '/admin')
     })
   }
-  else {
-    res.render('admin', {uploadMsg: 'No file uploaded :('})
-  }
-
+  
+  
 });
 
 module.exports = router;

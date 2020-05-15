@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www --https --redirect-http",
-    "dev": "pm2 start ./bin/www --watch --ignore-watch=upload/ --update-env -- --http",
+    "dev": "pm2 start ./bin/www -f --watch --ignore-watch=upload/* --update-env -- --http && pm2 log",
     "prod": "pm2 delete all && pm2 start ./bin/www --watch --ignore-watch=upload/* -i max --update-env -- --https --redirect-http && pm2 log"
   },
 
