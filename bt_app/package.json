@@ -7,6 +7,7 @@
     "dev": "pm2 start ./bin/www --watch --ignore-watch=upload/ --update-env -- --http",
     "prod": "pm2 delete all && pm2 start ./bin/www --watch --ignore-watch=upload/* -i max --update-env -- --https --redirect-http && pm2 log"
   },
+
   "dependencies": {
     "base64url": "^3.0.1",
     "compression": "^1.7.4",
