@@ -26,6 +26,9 @@ router.get('/bugs', function(req, res, next) {
 router.get('/suggestions', function(req, res, next) {
   res.render('suggestions');
 });
+router.get('/privateSession', function(req, res, next) {
+  res.render('privateSession');
+});
 
 router.get('/admin', (req, res, next) => {
   try{

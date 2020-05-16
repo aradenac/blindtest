@@ -32,7 +32,7 @@ router.post('/admin/auth', (req, res, next) => {
       debug('admin auth nok')
     }
 
-    res.redirect(302, '/admin')
+    res.redirect(303, '/admin')
     
   }
   catch(d){
