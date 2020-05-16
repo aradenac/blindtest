@@ -29,6 +29,11 @@ router.get('/suggestions', function(req, res, next) {
 router.get('/privateSession', function(req, res, next) {
   res.render('privateSession');
 });
+router.get('/contact', function(req, res, next) {
+  res.render('contact');
+});
+
+
 
 router.get('/admin', (req, res, next) => {
   try{
