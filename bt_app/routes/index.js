@@ -14,9 +14,6 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/contact', function(req, res, next) {
-  res.render('contact');
-});
 router.get('/help', function(req, res, next) {
   res.render('help');
 });
