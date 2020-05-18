@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var pseudoRouter = require('./routes/submitPseudo');
 var sessionRouter = require('./routes/session');
+var songRouter = require('./routes/song');
 var submitRouter = require('./routes/submit');
 var sessions = require('./sessions.js');
 var Session = require('./session.js');
@@ -173,6 +174,7 @@ for (app of apps){
   app.use('/submitPseudo', pseudoRouter);
   app.use('/session', sessionRouter);
   app.use('/submit', submitRouter);
+  app.use('/song', songRouter);
 
   // start a test game session
   debug('Creating a game Session');

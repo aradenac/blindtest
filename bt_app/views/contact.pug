@@ -1,0 +1,13 @@
+doctype(html)
+html
+  head
+    title Contact | WhatSong
+    link(rel='stylesheet' type='text/css' href='/stylesheets/style.css')
+  body
+    form(action="/contact" method="post")
+      label Votre pseudo
+      input(type="text" name="pseudo" autofocus)
+      label Votre email
+      input(type='email' placeHolder="aaa@bb.cc" name="email")
+      label Votre question
+      input(type='textarea' name="question")
