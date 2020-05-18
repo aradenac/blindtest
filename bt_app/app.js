@@ -65,6 +65,7 @@ if(argv.https){
   httpsApp = express();
   var app = httpsApp;
   app.set('port', process.env.HTTPS_PORT || 443);
+  app.use(require('express-status-monitor')());
   app.use(helmet())
   app.use(expectCt({
     enforce: true,

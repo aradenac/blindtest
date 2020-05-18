@@ -5,9 +5,8 @@
   "scripts": {
     "start": "node ./bin/www --https --redirect-http",
     "dev": "pm2 start ./bin/www -f --watch --ignore-watch=upload/* --update-env -- --http && pm2 log",
-    "prod": "pm2 delete all && pm2 start ./bin/www --watch --ignore-watch=upload/* -i max --update-env -- --https --redirect-http && pm2 log"
+    "prod": "pm2 start ./bin/www -f --watch --ignore-watch=upload/* -i max --update-env -- --https --redirect-http && pm2 log"
   },
-
   "dependencies": {
     "base64url": "^3.0.1",
     "compression": "^1.7.4",
@@ -15,6 +14,7 @@
     "debug": "^2.6.9",
     "dont-sniff-mimetype": "^1.1.0",
     "express": "~4.16.1",
+    "express-status-monitor": "^1.3.2",
     "feature-policy": "^0.5.0",
     "helmet": "^3.22.0",
     "helmet-csp": "^2.10.0",
