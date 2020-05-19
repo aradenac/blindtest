@@ -33,6 +33,10 @@ router.get('/contact', function(req, res, next) {
   res.render('contact');
 });
 
+router.get('/testBackbone', function(req, res, next) {
+  res.render('testBackbone');
+});
+
 
 
 router.get('/admin', (req, res, next) => {
