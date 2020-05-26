@@ -1,10 +1,59 @@
 body {
   font-family: 'roboto', Roboto, sans-serif;
-  padding: 5em;
+  padding: 3em;
   text-align: justify;
 }
 
 a {
   font-size: 1.3em;
   color: #00B7FF;
+}
+
+input {
+  margin: 2vw 1vw;
+  width : auto;
+}
+
+h2 {
+  margin-bottom: 2vw;
+}
+
+.typing-input {
+  width: 80%;
+  text-align: left;
+}
+
+.input-left {
+  text-align: center;
+}
+
+th, td {
+  margin: 1vw;
+}
+
+
+
+table {
+  margin-top: 3vw;
+  width: 100%;
+  text-align: center;
+}
+
+.column1 {
+  float: left;
+  width: 50%;
+
+}
+
+.column2 {
+  float: right;
+  width: 40%;
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }

@@ -14,8 +14,73 @@ html(lang="fr")
 
     p#uploadMsg #{uploadMsg}
     form(id="songUploadForm" action="/submit/song" method="post" enctype="multipart/form-data")
+      h2 Ajouter une chanson dans la base de données
+      br
       input(id="songInput" type="file" name="song" value="Choose a file" autofocus)
       input(id="submitButton" type="submit" name="submit" value="Upload" disabled)
+    div(class="row")
+      div(class="column1")
+        h2 Playlists en base de données:
+          table
+            thead
+              tr
+                th Nom de la playlist
+                th Supprimer
+                th Modifier
+            tbody
+              tr
+                td Playlist 1
+                td 
+                  input(type="submit" value="Supprimer")
+                td 
+                  input(type="submit" value="Modifer") 
+        
+      div(class="column2")    
+        h2 Créer/Modifier une playlist:
+        
+        form(action="")
+          label Nom de la playlist:
+          br
+          input(class="typing-input" type="text")
+          table
+            thead
+              tr
+                th Artiste
+                th Titre
+                th Supprimer
+            tbody
+              tr
+                td Artiste 1
+                td Titre 1
+                td 
+                  input(type="submit" value="Supprimer")
+          input(class="input-left" type="submit" value="Valider la playlist")
+    h2 Chansons en base de données:
+    br
+    label Recherche par mots-clés:
+    br
+    input(class="typing-input" type="text" name="searchByKW")
+    table
+      thead
+        tr
+          th Artiste
+          th Titre
+          th Supprimer
+          th Ajouter à une playlist
+      tbody
+        tr
+          td Artiste 1
+          td Titre 1
+          td 
+            input(type="submit" value="Supprimer")
+          td
+            form(action="")
+              select(name="playlists" id="playlists")
+                optgroup
+                  option(value="playlistID") Playlist 1
+              input(type="submit" value="Valider")   
+
+
     script.
       var file = document.getElementById('songInput');
       $('#songUploadForm :submit').prop('disabled', true)
