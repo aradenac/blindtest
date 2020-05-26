@@ -4,37 +4,26 @@ html(lang="fr")
     script(src="https://code.jquery.com/jquery-3.5.1.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.0/backbone.localStorage-min.js")
-    script(src='javascripts/todo.js')
+    script(src='javascripts/songs.js')
+
+    link(rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.css")
+    script(src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.js")
 
     title Test BackBone
    
     link(rel='stylesheet' type='text/css' href='stylesheets/style.css')
-    link(rel='stylesheet' type='text/css' href='stylesheets/todo.css')
+    link(rel='stylesheet' type='text/css' href='stylesheets/songs.css')
 
   body
-    #todoapp
-        header
-            h1 Todos
-            input#new-todo(type='text' placeholder='What needs to be done?')
-        section#main
-            input#toggle-all(type='checkbox')
-            label(for='toggle-all') Mark all as complete
-            ul#todo-list
-        footer
-            a#clear-completed Clear completed
-            #todo-count
-        #instructions
-        | Double-click to edit a todo.
-        #credits
-        | Created by
-        br
-        a(href='http://jgn.me/') J&eacute;r&ocirc;me Gravel-Niquet
-        | .
-        br
-        | Rewritten by: 
-        a(href='https://github.com/tastejs/todomvc') TodoMVC
-        | .
+    script#songTemplate(type='text/template').
+      <span class="view"><%= name %><i class="plus icon addSongToPlaylistButton"></i><i class="times icon deleteSongButton"></i></span>
+      <input class="edit" type="text">
+
+
+    #songsPanel
+      ul#tableSongs
+
+
 
     script#item-template(type='text/template').
         <div class="view">
