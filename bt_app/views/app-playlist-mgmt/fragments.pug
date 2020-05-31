@@ -1,0 +1,73 @@
+#form-song
+    form(id="songUploadForm" action="/submit/song" method="post" enctype="multipart/form-data")
+    h2 Ajouter une chanson dans la base de données
+    br
+    input(id="songInput" type="file" name="song" value="Choose a file" autofocus)
+    input(id="submitButton" type="submit" name="submit" value="Upload" disabled)
+
+#playlists
+    div.row
+    div(class="column1")
+        h2 Playlists en base de données:
+        br
+        div.search 
+            input.typing-input#search-playlist-input(type="text" name="searchByKW")
+            input.img-icon#search-playlist(type="image" alt="rechercher" src="./images/search.jpg")
+        table
+            thead
+            tr
+                th Nom de la playlist
+                th(colspan="2") 
+                input#new-playlist(type="submit" value="Nouvelle playlist")
+            tbody
+            tr
+                td.playlist-name Playlist 1
+                td.playlist-action 
+                input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg")
+                td.playlist-action  
+                input.img-icon(type="image" alt="modifier" src="./images/edit.png") 
+
+#modify-playlists
+    div(class="column2")    
+    h2 Créer/Modifier une playlist:
+    input.img-icon(type="image" alt="ajouter" src="./images/add.png")
+    input.img-icon(type="image" alt="enregistrer" src="./images/save.png" onclick="window.enregistrerPlaylist()")
+    input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg")
+    input.img-icon(type="image" alt="annuler" src="./images/back.jpg")
+    form(action="")
+        label Nom de la playlist:
+        br
+        input.typing-input#playlist-name-input(type="text" name="searchByKW")
+        table
+        thead
+            tr
+            th Artiste
+            th Titre
+            th 
+        tbody
+            tr
+            td Artiste 1
+            td Titre 1
+            td.playlist-action 
+                input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg")
+    
+#songs
+    h2 Chansons en base de données:
+    br
+    label Recherche par mots-clés:
+    br
+    div.search 
+    input.typing-input#search-song-input(type="text" name="searchByKW")
+    input.img-icon#search-song(type="image" alt="rechercher" src="./images/search.jpg")
+    table
+    thead
+        tr
+        th Artiste
+        th Titre
+        th 
+    tbody
+        tr
+        td Artiste 1
+        td Titre 1
+        td.songdb-action 
+            input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg")
