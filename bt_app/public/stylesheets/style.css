@@ -1,10 +1,74 @@
 body {
   font-family: 'roboto', Roboto, sans-serif;
-  padding: 5em;
+  padding: 3em;
   text-align: justify;
 }
 
 a {
   font-size: 1.3em;
   color: #00B7FF;
+}
+
+input {
+  margin: 2vw 1vw;
+  width : auto;
+}
+
+h2 {
+  margin-bottom: 2vw;
+}
+
+.search {
+  width: 100%;
+  margin-left: 0 auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.img-icon {
+  width: 3em;
+  vertical-align: middle;
+  margin-left: 0;
+}
+
+.input-left {
+  text-align: center;
+}
+
+th, td {
+  margin: 1vw;
+}
+
+.playlist-name, .songdb-action {
+  width: 6em;
+  max-width: 40%;
+}
+
+.playlist-action {
+  width: 3em;
+}
+
+table {
+  margin-top: 3vw;
+  width: 70%;
+  text-align: left;
+}
+
+.column1 {
+  float: left;
+  width: 50%;
+
+}
+
+.column2 {
+  float: right;
+  width: 40%;
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
