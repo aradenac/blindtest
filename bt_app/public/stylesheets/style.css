@@ -18,9 +18,17 @@ h2 {
   margin-bottom: 2vw;
 }
 
-.typing-input {
-  width: 80%;
-  text-align: left;
+.search {
+  width: 100%;
+  margin-left: 0 auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.img-icon {
+  width: 3em;
+  vertical-align: middle;
+  margin-left: 0;
 }
 
 .input-left {
@@ -31,12 +39,19 @@ th, td {
   margin: 1vw;
 }
 
+.playlist-name, .songdb-action {
+  width: 6em;
+  max-width: 40%;
+}
 
+.playlist-action {
+  width: 3em;
+}
 
 table {
   margin-top: 3vw;
-  width: 100%;
-  text-align: center;
+  width: 70%;
+  text-align: left;
 }
 
 .column1 {
