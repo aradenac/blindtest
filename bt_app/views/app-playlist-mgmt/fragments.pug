@@ -1,74 +1,97 @@
 #form-song
-    form(id="songUploadForm" action="/submit/song" method="post" enctype="multipart/form-data")
-    h2 Ajouter une chanson dans la base de données
-    br
-    input(id="songInput" type="file" name="song" value="Choose a file" autofocus)
-    input(id="submitButton" type="submit" name="submit" value="Upload" disabled onclick="window.afficherChansonsBd()")
+  input.img-icon(type="image" alt="annuler" src="./images/back.jpg" onclick="window.afficherPlaylist()")
+  form(id="songUploadForm" action="/submit/song" method="post" enctype="multipart/form-data")
+  h2 Ajouter une chanson dans la base de données
+  br
+  input(id="songInput" type="file" name="song" value="Choose a file" autofocus)
+  input(id="submitButton" type="submit" name="submit" value="Upload" disabled onclick="window.afficherChansonsBd()")
 
 #playlists
-    div.row
-    div(class="column1")
-        h2 Playlists en base de données:
-        br
-        div.search 
-            input.typing-input#search-playlist-input(type="text" name="searchByKW")
-            input.img-icon#search-playlist(type="image" alt="rechercher" src="./images/search.jpg")
-        table
-            thead
-            tr
-                th Nom de la playlist
-                th(colspan="2") 
-                input#new-playlist(type="submit" value="Nouvelle playlist" onclick="window.creerPlaylist()")
-            tbody
-            tr
-                td.playlist-name Playlist 1
-                td.playlist-action 
-                input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerPlaylist()")
-                td.playlist-action  
-                input.img-icon(type="image" alt="modifier" src="./images/edit.png" onclick="window.modifierPlaylist()") 
-
-#modify-playlists
-    div(class="column2")    
-    h2 Créer/Modifier une playlist:
-    input.img-icon(type="image" alt="ajouter" src="./images/add.png" onclick="window.afficherChansonsBd()")
-    input.img-icon(type="image" alt="enregistrer" src="./images/save.png" onclick="window.enregistrerPlaylist()")
-    input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerPlaylist()")
-    input.img-icon(type="image" alt="annuler" src="./images/back.jpg" onclick="window.afficherPlaylist()")
-    form(action="")
-        label Nom de la playlist:
-        br
-        input.typing-input#playlist-name-input(type="text" name="searchByKW")
-        table
-        thead
-            tr
-            th Artiste
-            th Titre
-            th 
-        tbody
-            tr
-            td Artiste 1
-            td Titre 1
-            td.playlist-action 
-                input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerChansonPlaylist()")
-    
-#songs
-    h2 Chansons en base de données:
-    br
-    label Recherche par mots-clés:
+  h1 Playlists existantes
+  div.row
+  div(class="column1")
+    h2 Rechercher une playlist:
     br
     div.search 
-    input.typing-input#search-song-input(type="text" name="searchByKW")
-    input.img-icon#search-song(type="image" alt="rechercher" src="./images/search.jpg")
+      input.typing-input#search-playlist-input(type="text" name="searchByKW")
+      input.img-icon#search-playlist(type="image" alt="rechercher" src="./images/search.jpg")
     table
-    thead
+      thead
         tr
+          th Nom de la playlist
+          th(colspan="2") 
+            input#new-playlist(type="submit" value="Nouvelle playlist" onclick="window.creerPlaylist()")
+      tbody
+        tr
+          td.table-entry  Playlist 1
+          td.table-action 
+            input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerPlaylist()")
+          td.table-action  
+            input.img-icon(type="image" alt="modifier" src="./images/edit.png" onclick="window.modifierPlaylist()") 
+        tr
+          td.playlist-name Playlist 2
+          td.table-action 
+            input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerPlaylist()")
+          td.table-action  
+            input.img-icon(type="image" alt="modifier" src="./images/edit.png" onclick="window.modifierPlaylist()") 
+
+#modify-playlists
+  div(class="column2")  
+  h2 Créer/Modifier une playlist:
+  input.img-icon(type="image" alt="ajouter" src="./images/add.png" onclick="window.afficherChansonsBd()")
+  input.img-icon(type="image" alt="enregistrer" src="./images/save.png" onclick="window.enregistrerPlaylist()")
+  input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerPlaylist()")
+  input.img-icon(type="image" alt="annuler" src="./images/back.jpg" onclick="window.afficherPlaylist()")
+  br
+  label Nom de la playlist:
+  br
+  input.typing-input#playlist-name-input(type="text" name="searchByKW")
+  table
+    thead
+      tr
         th Artiste
         th Titre
         th 
-            input.img-icon(type="image" alt="ajouter" src="./images/add.png" onclick="window.ajouterChansonBd()")
+    tbody
+      tr
+        td.table-entry Artiste 1
+        td.table-entry Titre 1
+        td.table-action 
+          input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerChansonPlaylist()")
+      tr
+        td.table-entry Artiste 2
+        td.table-entry Titre 2
+        td.table-action 
+          input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerChansonPlaylist()")
+  
+#songs
+  h2 Chansons en base de données:
+  br
+  input.img-icon(type="image" alt="annuler" src="./images/back.jpg" onclick="window.afficherPlaylist()")
+  input.img-icon(type="image" alt="ajouter" src="./images/add.png" onclick="window.ajouterChansonBd()")
+  br
+  label Recherche par mots-clés:
+  br
+  div.search 
+  input.typing-input#search-song-input(type="text" name="searchByKW")
+  input.img-icon#search-song(type="image" alt="rechercher" src="./images/search.jpg")
+  table
+    thead
+        tr
+          th Artiste
+          th Titre
+          th      
+          th    
     tbody
         tr
-        td Artiste 1
-        td Titre 1
-        td.songdb-action 
+          td.table-entry  Artiste 1
+          td.table-entry  Titre 1
+          td.table-entry 
+            input#add-to-playlist(type="submit" value="Ajouter à la playlist" onclick="window.afficherPlaylist()")
+          td.table-action 
+            input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerChansonBd()")
+        tr
+          td.table-entry  Artiste 2
+          td.table-entry  Titre 2
+          td.table-action 
             input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerChansonBd()")

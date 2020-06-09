@@ -39,14 +39,12 @@ th, td {
   margin: 1vw;
 }
 
-.playlist-name, .songdb-action {
+.table-entry, .table-action {
   width: 6em;
   max-width: 40%;
 }
 
-.playlist-action {
-  width: 3em;
-}
+
 
 table {
   margin-top: 3vw;
@@ -63,7 +61,12 @@ table {
 .column2 {
   float: right;
   width: 40%;
+}
 
+thead {
+  width: 60%;
+  text-align: left;
+  font-size: min(3.2em, 20px);
 }
 
 /* Clear floats after the columns */
