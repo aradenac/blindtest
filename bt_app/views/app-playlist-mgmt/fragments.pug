@@ -7,6 +7,12 @@
   input(id="submitButton" type="submit" name="submit" value="Upload" disabled onclick="window.afficherChansonsBd()")
 
 #playlists
+
+  script#playlist-template(type='text/template').
+    <td class="table-entry"> <%- title %> </td>
+    <td class="table-action"> <input class="img-icon deletePlaylistButton" type="image" alt="supprimer" src="./images/delete.jpg"> </td>
+    <td class="table-action"> <input class="img-icon editButton" type="image" alt="modifier" src="./images/edit.png"> </td>
+      
   h1 Playlists existantes
   div.row
   div(class="column1")
@@ -21,19 +27,7 @@
           th Nom de la playlist
           th(colspan="2") 
             input#new-playlist(type="submit" value="Nouvelle playlist" onclick="window.creerPlaylist()")
-      tbody
-        tr
-          td.table-entry  Playlist 1
-          td.table-action 
-            input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerPlaylist()")
-          td.table-action  
-            input.img-icon(type="image" alt="modifier" src="./images/edit.png" onclick="window.modifierPlaylist()") 
-        tr
-          td.playlist-name Playlist 2
-          td.table-action 
-            input.img-icon(type="image" alt="supprimer" src="./images/delete.jpg" onclick="window.supprimerPlaylist()")
-          td.table-action  
-            input.img-icon(type="image" alt="modifier" src="./images/edit.png" onclick="window.modifierPlaylist()") 
+      tbody#tbody-playlist-ctnr
 
 #modify-playlists
   div(class="column2")  

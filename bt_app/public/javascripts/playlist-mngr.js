@@ -4,21 +4,21 @@ $(() => {
     }
 
     window.modifierPlaylist = () => {
-        $ctnr.html(fragmentsIds.$modifyPlaylists.html())
+        displayFragment(fragmentsIds.$modifyPlaylists)
     }
 
     window.creerPlaylist = () => {
-        $ctnr.html(fragmentsIds.$modifyPlaylists.html())
+        displayFragment(fragmentsIds.$modifyPlaylists)
         //à voir comment on fait pour une liste vierge
     }
 
     window.supprimerPlaylist = () => {
-        $ctnr.html(fragmentsIds.$playlists.html())
+        displayFragment(fragmentsIds.$playlists)
         //suppression en bd et rafraichissement de la page sans la playlist
     }
 
     window.afficherChansonsBd = () => {
-        $ctnr.html(fragmentsIds.$songs.html())
+        displayFragment(fragmentsIds.$songs)
     }
 
     window.supprimerChansonPlaylist = () => {
@@ -26,7 +26,7 @@ $(() => {
     }
 
     window.afficherPlaylist = () => {
-        $ctnr.html(fragmentsIds.$playlists.html())
+        displayFragment(fragmentsIds.$playlists)
     }
 
     window.supprimerChansonBd = () => {
@@ -34,8 +34,13 @@ $(() => {
     }
 
     window.ajouterChansonBd = () => {
-        $ctnr.html(fragmentsIds.$formSong.html());
+        displayFragment($formSong);
         
+    }
+
+    function displayFragment($fragment){
+        $('#fragments > div').hide();
+        $fragment.show();
     }
 
     var fragmentsIds = {
@@ -45,18 +50,6 @@ $(() => {
         $playlists: $('#playlists')
     }
 
-    var $ctnr = $('#view')
-
-    for (fragmentName of Object.keys(fragmentsIds) )
-    {
-        var $fragment = fragmentsIds[fragmentName];
-        $fragment.hide()
-    }
-
-    $ctnr.html(fragmentsIds.$playlists.html())
-
-    $('#view input[alt="ajouter"]').click(() => {
-        $ctnr.html(fragmentsIds.$songs.html())
-    })
+    displayFragment(fragmentsIds.$playlists);
 
 });
