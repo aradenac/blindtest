@@ -50,6 +50,6 @@ $(() => {
         $playlists: $('#playlists')
     }
 
-    displayFragment(fragmentsIds.$playlists);
+//    displayFragment(fragmentsIds.$playlists);
 
 });

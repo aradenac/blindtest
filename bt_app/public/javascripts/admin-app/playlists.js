@@ -28,14 +28,52 @@ $(document).ready(function(){
       
       events: {
         "click .deletePlaylistButton": "clear",
+        "click .editButton": "edit"
+      },
+
+      edit: function() {
+        playlistAppView.editPlaylist(this.model)
       },
 
       clear: function(e){
         this.model.destroy();
       }
     })
-  
+
+
     var PlaylistAppView = Backbone.View.extend({
+      el: "#ctnr-app-playlist-mngr",
+
+      currentView: null,
+
+      fragmentsIds:  {
+        $songs: $('#songs'),
+        $modifyPlaylists: $('#modify-playlists'),
+        $formSong: $('#form-song'),
+        $playlists: $('#playlists')
+      },
+
+      displayFragment: function ($fragment){
+          $('#fragments > div').hide();
+          $fragment.show();
+      },
+
+      editPlaylist: function(playlistModel) {
+        this.displayFragment(this.fragmentsIds.$modifyPlaylists) 
+      },
+  
+      initialize: function(){
+        this.displayQueryView()
+      },
+
+      displayQueryView: function(){
+        this.displayFragment(this.fragmentsIds.$playlists)
+        this.currentView = new PlaylistQueryView
+      }
+  
+    })
+  
+    var PlaylistQueryView = Backbone.View.extend({
       el: "#tbody-playlist-ctnr",
   
       initialize: function(){
@@ -49,7 +87,7 @@ $(document).ready(function(){
       }
     })
   
-    var playlistApp = new PlaylistAppView;
+    var playlistAppView = new PlaylistAppView;
 
     playlists.add([
       {title: "playlist1"},
