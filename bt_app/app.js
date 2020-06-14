@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 
+var playlistApiRouter = require('./routes/playlistApiRouter')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var pseudoRouter = require('./routes/submitPseudo');
@@ -176,6 +177,7 @@ for (app of apps){
   app.use('/session', sessionRouter);
   app.use('/submit', submitRouter);
   app.use('/song', songRouter);
+  app.use('/api/playlists', playlistApiRouter);
 
   // start a test game session
   debug('Creating a game Session');

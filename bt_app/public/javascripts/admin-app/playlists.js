@@ -4,13 +4,16 @@ $(document).ready(function(){
     
     var Playlist = Backbone.Model.extend({
        defaults: {
-         "title": "truc muche"
+         "name": "truc muche"
        }
     })
   
     var Playlists = Backbone.Collection.extend({
       model: Playlist,
-      url: '/admin/playlists'
+      url: '/api/playlists',
+      initialize: function(){
+        this.fetch();
+      }
     })
   
     var playlists = new Playlists;
@@ -89,10 +92,6 @@ $(document).ready(function(){
   
     var playlistAppView = new PlaylistAppView;
 
-    playlists.add([
-      {title: "playlist1"},
-      {title: "playlist2"}
-    ])
 
 });
   
